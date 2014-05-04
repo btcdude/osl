@@ -1,20 +1,17 @@
 {
-  "name": "mtgox-apiv2",
-  "version": "1.1.4",
-  "description": "mtgox.com API v2 client for node.js",
+  "name": "anx",
+  "version": "0.0.1",
+  "description": "anxpro.com API v2 client for node.js",
   "keywords": [
     "btc",
     "bitcoin",
-    "mtgox"
+    "mtgox",
+    "anx",
+    "anxpro.com",
+    "anxbtc.com"
   ],
-  "author": "Ameen Soleimani (https://github.com/ameen3)",
+  "author": "BTCDude (https://github.com/btcdude)",
   "contributors": [
-    "Preston Skupinski <skupinsk@msu.edu> (https://github.com/pskupinski)",
-    "Lars-Magnus Skog <lars.magnus.skog@gmail.com> (https://github.com/ralphtheninja)",
-    "Mike van Rossum (https://github.com/askmike)",
-    "pulsecat (https://github.com/pulsecat)",
-    "Josh Harvey (https://github.com/joshmh)",
-    "Roger Enriquez Jr (https://github.com/rnreekez)"
   ],
   "license": "MIT",
   "dependencies": {
@@ -24,15 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ameen3/node-mtgox-apiv2"
+    "url": "https://github.com/btcdude/anx"
   },
   "main": "mtgox.js",
   "engines": {
     "node": "~0.10"
   },
   "bugs": {
-    "url": "https://github.com/ameen3/node-mtgox-apiv2/issues",
-    "email": "ameen.sol@gmail.com"
+    "url": "https://github.com/btcdude/anx/issues",
   },
   "readmeFilename": "README.md"
 }
