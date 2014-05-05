@@ -88,7 +88,7 @@ function ANXClient(key, secret, currency,server) {
 
   function basicOptions(version,path) {
     return {
-      uri: _server+"/api/"+version+"/" + path,
+      uri: self._server+"/api/"+version+"/" + path,
       agent: false,
       headers: {
         "User-Agent": "Mozilla/4.0 (compatible; ANX node.js client)",
