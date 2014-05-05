@@ -87,8 +87,7 @@ function ANXClient(key, secret, currency) {
 
   function basicOptions(version,path) {
     return {
-      //uri: "https://anxpro.com" + path,
-      uri: "http://dev.anxpro.com/api/"+version+"/" + path,
+      uri: "https://anxpro.com/api/"+version+"/" + path,
       agent: false,
       headers: {
         "User-Agent": "Mozilla/4.0 (compatible; ANX node.js client)",
@@ -204,7 +203,9 @@ function ANXClient(key, secret, currency) {
     makeRequest("dataToken", {}, callback,3);
   };
 
-  // More to come!
+  self.currencyStatic = function(callback) {
+      makePublicRequest("currencyStatic",{},callback,3);
+  }
 }
 
 module.exports = ANXClient;
