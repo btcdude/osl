@@ -1,6 +1,6 @@
 {
   "name": "anx",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "anxpro.com API v2 client for node.js",
   "keywords": [
     "btc",
