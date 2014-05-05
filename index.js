@@ -3,11 +3,12 @@ var querystring = require("querystring"),
   request = require("request"),
   JSONStream = require("JSONStream");
 
-function ANXClient(key, secret, currency) {
+function ANXClient(key, secret, currency,server) {
   var self = this;
   self.key = key;
   self.secret = secret;
   self._currency = currency || "BTCUSD";
+  self._server = server || "https://anxpro.com"
 
   var SATOSHI_FACTOR = Math.pow(10,8);
 
@@ -87,7 +88,7 @@ function ANXClient(key, secret, currency) {
 
   function basicOptions(version,path) {
     return {
-      uri: "https://anxpro.com/api/"+version+"/" + path,
+      uri: _server+"/api/"+version+"/" + path,
       agent: false,
       headers: {
         "User-Agent": "Mozilla/4.0 (compatible; ANX node.js client)",
