@@ -23,12 +23,12 @@
     "type": "git",
     "url": "https://github.com/btcdude/anx"
   },
-  "main": "mtgox.js",
+  "main": "index.js",
   "engines": {
     "node": "~0.10"
   },
   "bugs": {
-    "url": "https://github.com/btcdude/anx/issues",
+    "url": "https://github.com/btcdude/anx/issues"
   },
   "readmeFilename": "README.md"
 }
