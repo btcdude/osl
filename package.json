@@ -1,6 +1,6 @@
 {
   "name": "anx",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "anxpro.com API v2 client for node.js",
   "keywords": [
     "btc",
@@ -11,8 +11,7 @@
     "anxbtc.com"
   ],
   "author": "BTCDude (https://github.com/btcdude)",
-  "contributors": [
-  ],
+  "contributors": [],
   "license": "MIT",
   "dependencies": {
     "querystring": "0.2.0",
