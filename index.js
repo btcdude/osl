@@ -8,7 +8,7 @@ function ANXClient(key, secret, currency,server) {
   self.key = key;
   self.secret = secret;
   self._currency = currency || "BTCUSD";
-  self._server = server || "https://anxpro.com"
+  self._server = server || "https://anxpro.com";
 
   var SATOSHI_FACTOR = Math.pow(10,8);
 
@@ -25,8 +25,8 @@ function ANXClient(key, secret, currency,server) {
       throw new Error("Must provide key and secret to make this API request.");
     }
 
-    // generate a nonce
-    args.nonce = (new Date()).getTime() * 1000;
+    // generate a tonce (tonce used instead of nonce as tonce doesn't have to ever increase, which helps avoid race conditions due to nodes unpredictable order of operations
+    args.tonce = (new Date()).getTime() * 1000;
     // compute the post data
     var postData = null;
     if (version==3) {
@@ -61,7 +61,8 @@ function ANXClient(key, secret, currency,server) {
         var json;
       
         if (err  || !res || res.statusCode != 200) {
-          return callback(err || new Error("Request failed"));
+          var statusCode = res?res.statusCode:null;
+          return callback({error:(err || new Error("Request failed")),statusCode:statusCode});
         }
 
         // This try-catch handles cases where Mt.Gox returns 200 but responds with HTML,
@@ -71,9 +72,9 @@ function ANXClient(key, secret, currency,server) {
             json = JSON.parse(body);
         } catch(err) {
           if (body.indexOf("<") != -1) {
-            return callback(new Error("ANX responded with html:\n" + body));
+            return callback({error:new Error("ANX responded with html:\n" + body)});
           } else {
-            return callback(new Error("JSON parse error: " + err));  
+            return callback({error:new Error("JSON parse error: " + err)});
           }
         }
         
@@ -133,12 +134,12 @@ function ANXClient(key, secret, currency,server) {
   };
 
   // price is an optional argument, if not used it must be set to null
-  self.add = function(type, amount_int, price_int, callback) {
+  self.add = function(type, amount, price, callback) {
     var args = {
       "type": type,
-      "amount_int": amount_int
+      "amount": amount
     };
-    if (price_int) args.price_int = price_int;
+    if (price) args.price = price;
     makeRequest(self._currency + "/money/order/add", args, callback);
   };
 
