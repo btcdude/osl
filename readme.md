@@ -1,5 +1,7 @@
 #ANX API v2 Node Client
 
+#WARNING halfway through changing the api to use value rather than value_int types, examine the code before using in production.
+
 ANX implemented a MTGOX v2 compatible implementation for their polling API. This is a fork of https://github.com/ameensol/node-mtgox-apiv2
 
 To use this, you must have created an API Key on their [website](https://anxpro.com).
