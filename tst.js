@@ -1,6 +1,9 @@
 var ANXClient = require("./index");
 
-var client = new ANXClient("4240330b-ef4a-49e5-9e48-c122c1de8cac","1WgxyGmfeTNLewSz+9nmERefnoNVRBMa3kc5AeSI4pz48s+2R+HPE4as/LztGVVvMKf6jg2KOPyaGWUkkJygIw==");
+var key = "fd012755-ed0a-4740-ab16-f8dda02913a7";
+var secret = "HpicWK9k/425hqLUF/kluflK5N9rME4xVYYlM7Ux/uJ7UZa1PV1iyeEFovKg6hl/Q59/j00+Fewl0xQMlCh85A==";
+
+var client = new ANXClient(key,secret,"BTCUSD","https://test.anxpro.com");
 //
 //client.dataToken(function(err, json) {
 //    if (err) { throw err; }
@@ -34,9 +37,9 @@ var client = new ANXClient("4240330b-ef4a-49e5-9e48-c122c1de8cac","1WgxyGmfeTNLe
 //});
 //
 client.orders(function(err, json) {
-    if (err) { throw err; }
+    if (err) { throw JSON.stringify(err,null,3); }
     console.log("---------------Orders:--------------");
-    console.log(json);
+    console.log(JSON.stringify(json,null,3));
 });
 
 //client.currencyStatic(function(err, json) {
@@ -46,7 +49,7 @@ client.orders(function(err, json) {
 //});
 
 client.ticker(function(err, json) {
-    if (err) { throw err; }
+    if (err) { throw JSON.stringify(err,null,3); }
     console.log("---------------CurrencyStatic:--------------");
-    console.log(json);
+    console.log(JSON.stringify(json,null,3));
 });
