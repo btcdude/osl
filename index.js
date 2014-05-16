@@ -182,11 +182,17 @@ function ANXClient(key, secret, currency,server) {
     makeRequest("money/wallet/history", args, callback);
   };
 
+    // old gox method, better to use generic one below that also supports otp
   self.sendBitcoin = function(address, amount, fee, callback) {
     var amountInt = amount * SATOSHI_FACTOR;
     var feeInt = fee * SATOSHI_FACTOR;
     var args = { address: address, amount_int: amountInt, fee_int: feeInt };
     makeRequest("money/bitcoin/send_simple", args, callback);
+  };
+
+  self.send = function(ccy, address, amount, otp, callback) {
+      var args = {address:address,ccy:ccy,amount:amount,otp:otp}
+      makeRequest("money/bitcoin/send_simple", args, callback);
   };
 
   self.depositAddress = function(callback) {
@@ -208,6 +214,31 @@ function ANXClient(key, secret, currency,server) {
   self.currencyStatic = function(callback) {
       makePublicRequest("currencyStatic",{},callback,3);
   }
+
+  self.merchantQuoteRequest = function(tradedCcy,settlementCcy,settlementAmount,side,customRef,callback) {
+    makeRequest("merchant/quote/new", {tradedCurrency:tradedCcy,settlementCurrency:settlementCcy,settlementCurrencyAmount:settlementAmount,side:side,customRef:customRef}, callback,3);
+  };
+
+  self.merchantTradeRequest = function(quoteId,callback) {
+    makeRequest("merchant/trade/new", {quoteId:quoteId}, callback,3);
+  };
+
+  self.merchantTradeRequestList = function(quoteId,callback) {
+    makeRequest("merchant/trade/list", {quoteId:quoteId}, callback,3); 
+  };
+
+  self.createSubAccount= function(ccy,customRef,callback) {
+        makeRequest("subaccount/new", {ccy:ccy,customRef:customRef}, callback,3);
+  };
+
+  self.accountAddress= function(ccy,subAccount,callback) {
+        makeRequest("receive", {ccy:ccy,subAccount:subAccount}, callback,3);
+  };
+
+  self.newAccountAddress= function(ccy,subAccount,callback) {
+       makeRequest("receive/create", {ccy:ccy,subAccount:subAccount}, callback,3);
+  };
+
 }
 
 module.exports = ANXClient;
