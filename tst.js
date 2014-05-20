@@ -1,9 +1,12 @@
 var ANXClient = require("./index");
 
 var key = "fd012755-ed0a-4740-ab16-f8dda02913a7";
-var secret = "HpicWK9k/425hqLUF/kluflK5N9rME4xVYYlM7Ux/uJ7UZa1PV1iyeEFovKg6hl/Q59/j00+Fewl0xQMlCh85A==";
+var secret = "EYTgcpoX8RMab9Da+al/5Vt3Q8KXp0casycJp5Z4lD5cZfva8OBVZ0zSkzQFcBzs4VBDuPpOIvP5QjVmZzl/nw=="
+//var key = "fd012755-ed0a-4740-ab16-f8dda02913a7";
+//var secret = "HpicWK9k/425hqLUF/kluflK5N9rME4xVYYlM7Ux/uJ7UZa1PV1iyeEFovKg6hl/Q59/j00+Fewl0xQMlCh85A==";
 
-var client = new ANXClient(key,secret,"BTCUSD","https://test.anxpro.com");
+//var client = new ANXClient(key,secret,"BTCUSD","https://test.anxpro.com");
+var client = new ANXClient(key,secret,"BTCUSD","http://dev.anxpro.com");
 //
 //client.dataToken(function(err, json) {
 //    if (err) { throw err; }
@@ -36,11 +39,13 @@ var client = new ANXClient(key,secret,"BTCUSD","https://test.anxpro.com");
 //
 //});
 //
+/*
 client.orders(function(err, json) {
     if (err) { throw JSON.stringify(err,null,3); }
     console.log("---------------Orders:--------------");
     console.log(JSON.stringify(json,null,3));
 });
+*/
 
 //client.currencyStatic(function(err, json) {
 //    if (err) { throw err; }
@@ -48,8 +53,16 @@ client.orders(function(err, json) {
 //    console.log(json);
 //});
 
+/*
 client.ticker(function(err, json) {
     if (err) { throw JSON.stringify(err,null,3); }
     console.log("---------------CurrencyStatic:--------------");
+    console.log(JSON.stringify(json,null,3));
+});
+*/
+
+client.tradeHistory(10,0,function(err, json) {
+    if (err) { throw JSON.stringify(err,null,3); }
+    console.log("---------------Orders:--------------");
     console.log(JSON.stringify(json,null,3));
 });
