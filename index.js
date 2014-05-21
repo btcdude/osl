@@ -165,8 +165,8 @@ function ANXClient(key, secret, currency, server) {
     };
 
     // page is an optional argument, if not used it must be set to null
-    self.history = function (currency, page, callback) {
-        var args = { "currency": currency };
+    self.history = function (currency, page, fromMillis, toMillis, callback) {
+        var args = { "currency": currency, from:fromMillis, to:toMillis };
         if (page) args.page = page;
         makeRequest("money/wallet/history", args, callback);
     };
