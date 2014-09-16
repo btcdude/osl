@@ -9,6 +9,10 @@ function ANXClient(key, secret, currency, server) {
     self.secret = secret;
     self._currency = currency || "BTCUSD";
     self._server = server || "https://anxpro.com";
+//    self._proxy = 'http://localhost:8888';
+    self._proxy = '';
+    var tonceCounter = 0;
+    var lastTonce = 0;
 
     var SATOSHI_FACTOR = Math.pow(10, 8);
 
@@ -26,7 +30,17 @@ function ANXClient(key, secret, currency, server) {
         }
 
         // generate a tonce (tonce used instead of nonce as tonce doesn't have to ever increase, which helps avoid race conditions due to nodes unpredictable order of operations
-        args.tonce = (new Date()).getTime() * 1000;
+        args.tonce = ((new Date()).getTime() * 1000);
+
+        if (args.tonce == lastTonce) {
+            tonceCounter++;
+        } else {
+            tonceCounter = 0;
+            lastTonce = args.tonce;
+        }
+
+        args.tonce =  args.tonce + tonceCounter;
+
         // compute the post data
         var postData = null;
         if (version == 3) {
@@ -91,6 +105,7 @@ function ANXClient(key, secret, currency, server) {
         return {
             uri: self._server + "/api/" + version + "/" + path,
             agent: false,
+            proxy: self._proxy,
             headers: {
                 "User-Agent": "Mozilla/4.0 (compatible; ANX node.js client)",
                 "Content-type": "application/x-www-form-urlencoded"
@@ -139,7 +154,7 @@ function ANXClient(key, secret, currency, server) {
     self.cancel = function (id, callback) {
         makeRequest(self._currency + "/money/order/cancel", {
             "oid": id
-        }, callback);
+        }, callback, 2);
     };
 
     // not currently implemented
@@ -212,8 +227,8 @@ function ANXClient(key, secret, currency, server) {
         makeRequest("merchant/trade/new", {quoteId: quoteId}, callback, 3);
     };
 
-    self.merchantTradeRequestList = function (quoteId, callback) {
-        makeRequest("merchant/trade/list", {quoteId: quoteId}, callback, 3);
+    self.merchantTradeList = function (callback) {
+        makeRequest("merchant/trade/list", {}, callback, 3);
     };
 
     self.createSubAccount = function (ccy, customRef, callback) {
@@ -236,6 +251,7 @@ function ANXClient(key, secret, currency, server) {
         makeRequest("order/new", {order:{orderType:'MARKET',buyTradedCurrency: buyTradedCcy, tradedCurrency: tradedCcy, settlementCurrency: settlementCcy, tradedCurrencyAmount: tradedCcyAmount}}, callback, 3);
     };
 
+	// TODO: Add tonceIncrement to methods below
     // allows you to fix the amount of settlement (i.e. you could specify if you wish to buy exactly 1000USD worth of BTC with this method)
     self.newMarketOrderFixedSettlementAmount = function (buyTradedCcy, tradedCcy, settlementCcy, settlementCcyAmount, callback) {
         makeRequest("order/new", {order:{orderType:'MARKET',buyTradedCurrency: buyTradedCcy, tradedCurrency: tradedCcy, settlementCurrency: settlementCcy, settlementCurrencyAmount: settlementCcyAmount}}, callback, 3);
