@@ -8,7 +8,7 @@ function ANXClient(key, secret, currency, server) {
     self.key = key;
     self.secret = secret;
     self._currency = currency || "BTCUSD";
-    self._server = server || "https://anxpro.com";
+    self._server = server || "https://anxbtc.com";
 //    self._proxy = 'http://localhost:8888';
     self._proxy = '';
     var tonceCounter = 0;
