@@ -3,12 +3,12 @@ var querystring = require("querystring"),
     request = require("request"),
     JSONStream = require("JSONStream");
 
-function ANXClient(key, secret, currency, server) {
+function OSLClient(key, secret, currency, server) {
     var self = this;
     self.key = key;
     self.secret = secret;
     self._currency = currency || "BTCUSD";
-    self._server = server || "https://anxbtc.com";
+    self._server = server || "https://trade.osl.com";
 //    self._proxy = 'http://localhost:8888';
     self._proxy = '';
     var tonceCounter = 0;
@@ -51,7 +51,7 @@ function ANXClient(key, secret, currency, server) {
 
         // append the path to the post data
         var message = path + "\0" + postData;
-        if (version == 3) { //ANX version 3 expects the full path
+        if (version == 3) { //OSL version 3 expects the full path
             message = "api/3/" + message;
         }
         // compute the sha512 signature of the message
@@ -81,12 +81,12 @@ function ANXClient(key, secret, currency, server) {
 
                 // This try-catch handles cases where Mt.Gox returns 200 but responds with HTML,
                 // causing the JSON.parse to throw
-                // shouldn't happen with ANX but left here for now.
+                // shouldn't happen with OSL but left here for now.
                 try {
                     json = JSON.parse(body);
                 } catch (err) {
                     if (body.indexOf("<") != -1) {
-                        return callback({error: new Error("ANX responded with html:\n" + body)});
+                        return callback({error: new Error("OSL responded with html:\n" + body)});
                     } else {
                         return callback({error: new Error("JSON parse error: " + err)});
                     }
@@ -107,7 +107,7 @@ function ANXClient(key, secret, currency, server) {
             agent: false,
             proxy: self._proxy,
             headers: {
-                "User-Agent": "Mozilla/4.0 (compatible; ANX node.js client)",
+                "User-Agent": "Mozilla/4.0 (compatible; OSL node.js client)",
                 "Content-type": "application/x-www-form-urlencoded"
             }
         };
@@ -296,4 +296,4 @@ function ANXClient(key, secret, currency, server) {
 
 }
 
-module.exports = ANXClient;
+module.exports = OSLClient;

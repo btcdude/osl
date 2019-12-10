@@ -1,14 +1,11 @@
 {
-  "name": "anx",
+  "name": "osl",
   "version": "0.1.0",
-  "description": "anxpro.com API client for node.js",
+  "description": "osl.com API client for node.js",
   "keywords": [
     "btc",
     "bitcoin",
-    "mtgox",
-    "anx",
-    "anxpro.com",
-    "anxbtc.com"
+    "osl",
   ],
   "author": "BTCDude (https://github.com/btcdude)",
   "contributors": [],
@@ -20,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/btcdude/anx"
+    "url": "https://github.com/btcdude/osl"
   },
   "main": "index.js",
   "engines": {
     "node": "~0.10"
   },
   "bugs": {
-    "url": "https://github.com/btcdude/anx/issues"
+    "url": "https://github.com/btcdude/osl/issues"
   },
   "readmeFilename": "README.md"
 }
